@@ -3,8 +3,8 @@ module.exports = function(app) {
     var clienteController = {
 
         create: function(req, res) {
-            var cliente = res.body;
-            console.log(req)
+            var cliente = req.body;
+
             var connection = app.infra.connectionFactory();
             var clienteDAO = new app.infra.cliente.clienteDAO(connection);
             clienteDAO.save(cliente)
