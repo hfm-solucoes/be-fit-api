@@ -7,5 +7,4 @@ module.exports = function(app) {
     app.put('/v1/cliente/:id', cliente.update);
     app.delete('/v1/cliente/:id', cliente.delete);
 
-
 }

@@ -8,7 +8,6 @@ module.exports = function() {
     // app.use(bodyParser.urlencoded({
     //     extended: false
     // }))
-
     app.use(bodyParser.json());
 
     consing({cwd: 'app'})

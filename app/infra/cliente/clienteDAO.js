@@ -4,7 +4,39 @@ function clienteDAO(connection) {
 
 }
 
-clienteDAO.prototype.save = function(objeto, callback) {
+clienteDAO.prototype.fetch = function(callback) {
+    
+    return new Promise((resolve, reject) => {
+        var sql_query = `
+            select
+                idUsuario,
+                nome,
+                dtNasc,
+                cpf,
+                rg,
+                cep,
+                endereco,
+                numero,
+                bairro,
+                cidade,
+                uf,
+                telefone,
+                sexo
+            from 
+                cliente 
+            where 
+                deletado != "*" `;
+        this._connection.query(sql_query, function(erro, result) {
+            if (erro) {
+                return reject(erro);
+            }
+
+            return resolve(result);
+        });
+    });
+}
+
+clienteDAO.prototype.create = function(objeto, callback) {
 
     return new Promise((resolve, reject) => {
         var sql_query = `insert into cliente set ?`;
@@ -18,21 +50,7 @@ clienteDAO.prototype.save = function(objeto, callback) {
     });
 }
 
-clienteDAO.prototype.lista = function(callback) {
-    
-    return new Promise((resolve, reject) => {
-        var sql_query = `select * from cliente where deletado = 0`;
-        this._connection.query(sql_query, function(erro, result) {
-            if (erro) {
-                return reject(erro);
-            }
-
-            return resolve(result);
-        });
-    });
-}
-
-clienteDAO.prototype.atualiza = function(objeto, callback) {
+clienteDAO.prototype.update = function(objeto, callback) {
     
     return new Promise((resolve, reject) => {
         var sql_query = `update cliente set ? where idUsuario = ?`;
@@ -46,7 +64,7 @@ clienteDAO.prototype.atualiza = function(objeto, callback) {
     });
 }
 
-clienteDAO.prototype.remove = function(cliente, callback) {
+clienteDAO.prototype.delete = function(cliente, callback) {
 
     return new Promise((resolve, reject) => {
         var sql_query = `update cliente set ? where idUsuario = ?`;

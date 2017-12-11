@@ -6,7 +6,7 @@ module.exports = function(app) {
             var connection = app.infra.connectionFactory();
             var clienteDAO = new app.infra.cliente.clienteDAO(connection);
 
-            clienteDAO.lista()
+            clienteDAO.fetch()
                 .then(result => res.json(result).status(200))
                 .catch(err => res.json(err))
 
@@ -17,7 +17,8 @@ module.exports = function(app) {
 
             var connection = app.infra.connectionFactory();
             var clienteDAO = new app.infra.cliente.clienteDAO(connection);
-            clienteDAO.save(cliente)
+
+            clienteDAO.create(cliente)
                 .then(result => res.json("O cliente foi adicionado com sucesso!").status(201))
                 .catch(err => res.json(err))
 
@@ -31,8 +32,8 @@ module.exports = function(app) {
 
             var connection = app.infra.connectionFactory();
             var clienteDAO = new app.infra.cliente.clienteDAO(connection);
-            clienteDAO.atualiza(cliente)
-                .then(result => res.json("O cliente foi atualizado com sucesso!").status(201))
+            clienteDAO.update(cliente)
+                .then(result => res.json("O cliente foi atualizado com sucesso!").status(200))
                 .catch(err => res.json(err))
             
             connection.end(); 
@@ -45,9 +46,11 @@ module.exports = function(app) {
 
             var connection = app.infra.connectionFactory();
             var clienteDAO = new app.infra.cliente.clienteDAO(connection);
-            clienteDAO.remove(cliente)
+            clienteDAO.delete(cliente)
                 .then(result => res.json("O cliente foi removido com sucesso!").status(204))
                 .catch(err => res.json(err))
+            
+            connection.end();
         }
 
         
