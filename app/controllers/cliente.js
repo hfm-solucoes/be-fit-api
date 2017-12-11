@@ -13,6 +13,24 @@ module.exports = function(app) {
             connection.end();
         },
         create: function(req, res) {
+
+            req.assert("nome", "Nome é obrigatorio e deve ter 45 caracteres.").notEmpty().len(45, 45);
+            req.assert("cpf", "CPF é obrigatorio e deve ter 14 caracteres.").notEmpty().len(14, 14);
+            req.assert("rg", "RG deve ter 12 caracteres.").len(12, 12);
+            req.assert("cep", "cep deve ter 9 caracteres.").len(9, 9);
+            req.assert("numero", "O numero precisa ser inteiro.").isInt();
+            req.assert("uf", "UF deve ter de 2 a 10 caracteres.").len(2, 10);
+            req.assert("telefone", "Telefone é obrigatorio e deve ter 15 caracteres.").notEmpty().len(15, 15);
+            req.assert("sexo", "Sexo é obrigatorio e deve ter 1 caracter.").notEmpty().len(1, 1);
+
+            var errors = req.validationErrors();
+
+            if (errors) {
+                console.log("Erros de validação encontrados");
+                res.status(400).send(errors);
+                return;
+            }
+
             var cliente = req.body;
 
             var connection = app.infra.connectionFactory();

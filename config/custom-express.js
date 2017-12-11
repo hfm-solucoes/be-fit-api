@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var consing = require("consign");
+var expressValidator = require("express-validator");
 
 module.exports = function() {
     var app = express();
@@ -9,6 +10,7 @@ module.exports = function() {
     //     extended: false
     // }))
     app.use(bodyParser.json());
+    app.use(expressValidator());
 
     consing({cwd: 'app'})
         .include('controllers')
