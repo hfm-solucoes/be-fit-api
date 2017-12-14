@@ -23,9 +23,7 @@ clienteDAO.prototype.fetch = function(callback) {
                 telefone,
                 sexo
             from 
-                cliente 
-            where 
-                deletado != "*" `;
+                cliente`;
         this._connection.query(sql_query, function(erro, result) {
             if (erro) {
                 return reject(erro);
@@ -78,6 +76,17 @@ clienteDAO.prototype.delete = function(cliente, callback) {
     });
 }
 
+clienteDAO.prototype.find = function(id, callback){
+    return new Promise((resolve, reject) => {
+        var sql_query = `select * from cliente where idUsuario = ? LIMIT 1`;
+        this._connection.query(sql_query,[id],function(erro, result){
+            if(erro){
+                return reject(erro);
+            }
+            return resolve(result[0])
+        })
+    })
+}
 
 module.exports = function() {
     return clienteDAO;
