@@ -27,11 +27,8 @@ module.exports = function(app) {
 
         create: function(req, res) {
 
-<<<<<<< HEAD
             req.assert("nome", "Nome é obrigatorio e deve ter 45 caracteres.").notEmpty().len(1, 45);
-=======
             req.assert("nome", "Nome é obrigatorio e não deve passar de 45 caracteres.").notEmpty().len(3, 45);
->>>>>>> origin/master
             req.assert("cpf", "CPF é obrigatorio e deve ter 14 caracteres.").notEmpty().len(14, 14);
             req.assert("rg", "RG deve ter 12 caracteres.").len(12, 12);
             req.assert("cep", "cep deve ter 9 caracteres.").len(9, 9);
