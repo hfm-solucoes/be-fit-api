@@ -4,7 +4,7 @@ module.exports = function(app) {
     
             find: function(req, res) {
                 var connection = app.infra.connectionFactory();
-                var medidaDAO = new app.infra.medida.medidaDAO(connection);
+                var medidaDAO = new app.infra.cliente.medidaDAO(connection);
                 
                 var idUsuario = req.params.id;
     
@@ -19,7 +19,7 @@ module.exports = function(app) {
                 var medida = req.body;
     
                 var connection = app.infra.connectionFactory();
-                var medidaDAO = new app.infra.medida.medidaDAO(connection);
+                var medidaDAO = new app.infra.cliente.medidaDAO(connection);
              
                 medidaDAO.create(medida)
                     .then(result => {
@@ -37,7 +37,7 @@ module.exports = function(app) {
                 }
     
                 var connection = app.infra.connectionFactory();
-                var medidaDAO = new app.infra.medida.medidaDAO(connection);
+                var medidaDAO = new app.infra.cliente.medidaDAO(connection);
                 medidaDAO.update(medida)
                     .then(result => res.json("A medida do usuário foi atualizada com sucesso!").status(200))
                     .catch(err => res.json(err))
@@ -51,7 +51,7 @@ module.exports = function(app) {
                 }
     
                 var connection = app.infra.connectionFactory();
-                var medidaDAO = new app.infra.medida.medidaDAO(connection);
+                var medidaDAO = new app.infra.cliente.medidaDAO(connection);
                 medidaDAO.delete(medida)
                     .then(result => res.json("A medida do usuario foi removida com sucesso!").status(204))
                     .catch(err => res.json(err))
