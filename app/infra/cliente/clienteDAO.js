@@ -23,7 +23,8 @@ clienteDAO.prototype.fetch = function(callback) {
                 telefone,
                 sexo
             from 
-                cliente`;
+                cliente
+            where`;
         this._connection.query(sql_query, function(erro, result) {
             if (erro) {
                 return reject(erro);
@@ -62,11 +63,11 @@ clienteDAO.prototype.update = function(objeto, callback) {
     });
 }
 
-clienteDAO.prototype.delete = function(cliente, callback) {
+clienteDAO.prototype.delete = function(id, callback) {
 
     return new Promise((resolve, reject) => {
-        var sql_query = `update cliente set ? where idUsuario = ?`;
-        this._connection.query(sql_query, [cliente.body, cliente.id], function(erro, result) {
+        var sql_query = `update cliente set delete = '*' where idUsuario = ?`;
+        this._connection.query(sql_query, [id], function(erro, result) {
             if (erro) {
                 return reject(erro);
             }
