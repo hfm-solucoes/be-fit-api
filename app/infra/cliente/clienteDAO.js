@@ -11,7 +11,7 @@ clienteDAO.prototype.fetch = function(callback) {
             select
                 idUsuario,
                 nome,
-                dtNasc,
+                DATE_FORMAT(dtNasc, '%d/%l/%Y') as dtNasc,
                 cpf,
                 rg,
                 cep,
@@ -23,8 +23,7 @@ clienteDAO.prototype.fetch = function(callback) {
                 telefone,
                 sexo
             from 
-                cliente
-            where`;
+                cliente`;
         this._connection.query(sql_query, function(erro, result) {
             if (erro) {
                 return reject(erro);

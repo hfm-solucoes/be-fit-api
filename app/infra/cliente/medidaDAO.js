@@ -6,11 +6,10 @@ function medidaDAO(connection) {
 
     medidaDAO.prototype.find = function(idUsuario, callback){
         return new Promise((resolve, reject) => {
-            // Verificar se o nome do campo realmente é Usuario_idUsuario
-            var sql_query = `select * from medida where Usuario_idUsuario = ? LIMIT 1`;
-            this._connection.query(sql_query,[id],function(erro, result){
+            var sql_query = `select medida.*, cliente.nome from medida inner join cliente on cliente.idUsuario = medida.idUsuario where medida.idUsuario = ? LIMIT 1`;
+            this._connection.query(sql_query,[idUsuario],function(erro, result){
                 if(erro){
-                    return reject(erro);
+                    return reject(erro)
                 }
                 return resolve(result[0])
             })

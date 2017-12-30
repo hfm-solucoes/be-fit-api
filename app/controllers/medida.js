@@ -7,7 +7,6 @@ module.exports = function(app) {
                 var medidaDAO = new app.infra.cliente.medidaDAO(connection);
                 
                 var idUsuario = req.params.id;
-    
                 medidaDAO.find(idUsuario)
                     .then(result => res.json(result).status(200))
                     .catch(err => res.json(err))
