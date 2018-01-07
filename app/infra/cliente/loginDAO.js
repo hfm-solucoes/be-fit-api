@@ -1,72 +1,52 @@
-function clienteDAO(connection) {
+function loginDAO(connection) {
 
     this._connection = connection;
 
 }
 
-clienteDAO.prototype.fetch = function(callback) {
+loginDAO.prototype.fetch = function(callback) {
     
     return new Promise((resolve, reject) => {
-        var sql_query = `
-            select
-                idUsuario,
-                nome,
-                DATE_FORMAT(dtNasc, '%d/%l/%Y') as dtNasc,
-                cpf,
-                rg,
-                cep,
-                endereco,
-                numero,
-                bairro,
-                cidade,
-                uf,
-                telefone,
-                sexo,
-                idLogin
-            from 
-                cliente`;
+        var sql_query = `select * from login`;
         this._connection.query(sql_query, function(erro, result) {
             if (erro) {
                 return reject(erro);
             }
-
             return resolve(result);
         });
     });
 }
 
-clienteDAO.prototype.create = function(objeto, callback) {
+loginDAO.prototype.create = function(objeto, callback) {
 
     return new Promise((resolve, reject) => {
-        var sql_query = `insert into cliente set ?`;
+        var sql_query = `insert into login set ?`;
         this._connection.query(sql_query, objeto, function(erro, result) {
             if (erro) {
                 return reject(erro);
             } 
-            
-           return resolve(result);
-        });
-    });
-}
-
-clienteDAO.prototype.update = function(objeto, callback) {
-    
-    return new Promise((resolve, reject) => {
-        var sql_query = `update cliente set ? where idUsuario = ?`;
-        this._connection.query(sql_query, [objeto.body, objeto.id], function(erro, result) {
-            if (erro) {
-                return reject(erro);
-            }
-
             return resolve(result);
         });
     });
 }
 
-clienteDAO.prototype.delete = function(id, callback) {
+loginDAO.prototype.update = function(objeto, callback) {
+    
+    return new Promise((resolve, reject) => {
+        var sql_query = `update login set ? where idUsuario = ?`;
+        this._connection.query(sql_query, [objeto.body, objeto.id], function(erro, result) {
+            if (erro) {
+                return reject(erro);
+            }
+            return resolve(result);
+        });
+    });
+}
+
+loginDAO.prototype.delete = function(id, callback) {
 
     return new Promise((resolve, reject) => {
-        var sql_query = `update cliente set delete = '*' where idUsuario = ?`;
+        var sql_query = `update login set delete = '*' where idUsuario = ?`;
         this._connection.query(sql_query, [id], function(erro, result) {
             if (erro) {
                 return reject(erro);
@@ -76,9 +56,9 @@ clienteDAO.prototype.delete = function(id, callback) {
     });
 }
 
-clienteDAO.prototype.find = function(id, callback){
+loginDAO.prototype.find = function(id, callback){
     return new Promise((resolve, reject) => {
-        var sql_query = `select * from cliente where idUsuario = ? LIMIT 1`;
+        var sql_query = `select * from login where idUsuario = ? LIMIT 1`;
         this._connection.query(sql_query,[id],function(erro, result){
             if(erro){
                 return reject(erro);
@@ -89,5 +69,5 @@ clienteDAO.prototype.find = function(id, callback){
 }
 
 module.exports = function() {
-    return clienteDAO;
+    return loginDAO;
 }
