@@ -21,8 +21,7 @@ clienteDAO.prototype.fetch = function(callback) {
                 cidade,
                 uf,
                 telefone,
-                sexo,
-                idLogin
+                sexo
             from 
                 cliente`;
         this._connection.query(sql_query, function(erro, result) {
