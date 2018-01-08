@@ -2,6 +2,29 @@ module.exports = function(app) {
 
     var loginController = {
 
+        autentica: function(req, res) {
+            var login = req.body;
+            console.log(login)
+            var connection = app.infra.connectionFactory();
+            var loginDAO = new app.infra.cliente.loginDAO(connection);
+
+            loginDAO.autentica(login)
+                .then(result => {
+                    if (result.length != 0) {
+                        console.log(result)
+                        res.json(result).status(200);
+                    } else {
+                        res.status(203).send('Email ou senha incorreto.');
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send(err.sqlMessage)
+                    console.log(err)
+                })
+
+            connection.end();
+        },
+
         fetch: function(req, res) {
             var connection = app.infra.connectionFactory();
             var loginDAO = new app.infra.cliente.loginDAO(connection);
@@ -42,6 +65,7 @@ module.exports = function(app) {
 
             connection.end();
         },
+
         update: function(req, res) {
             var login = {
                 id: req.params.id,

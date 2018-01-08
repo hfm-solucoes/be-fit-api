@@ -4,8 +4,21 @@ function loginDAO(connection) {
 
 }
 
+loginDAO.prototype.autentica = function(objeto, callback) {
+
+    return new Promise((resolve, reject) => {
+        var sql_query = `select * from login where email = ? and senha = ?`;
+        this._connection.query(sql_query, [objeto.email, objeto.senha], function(erro, result) {
+            if (erro) {
+                return reject(erro);
+            }
+            return resolve(result);
+        });
+    });
+}
+
 loginDAO.prototype.fetch = function(callback) {
-    
+
     return new Promise((resolve, reject) => {
         var sql_query = `select * from login`;
         this._connection.query(sql_query, function(erro, result) {
