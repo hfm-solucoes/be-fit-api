@@ -7,12 +7,12 @@ function loginDAO(connection) {
 loginDAO.prototype.autentica = function(objeto, callback) {
 
     return new Promise((resolve, reject) => {
-        var sql_query = `select * from login where email = ? and senha = ?`;
+        var sql_query = `select * from login where email = ? and senha = ? LIMIT 1`;
         this._connection.query(sql_query, [objeto.email, objeto.senha], function(erro, result) {
             if (erro) {
                 return reject(erro);
             }
-            return resolve(result);
+            return resolve(result[0]);
         });
     });
 }
