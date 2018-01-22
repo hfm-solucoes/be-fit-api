@@ -75,7 +75,7 @@ module.exports = function(app) {
         },
         delete: function(req, res) {
             var cliente = {
-                id: req.params.idUsuario,
+                id: req.params.id,
                 body: req.body
             }
             console.log()

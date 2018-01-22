@@ -47,7 +47,7 @@ function medidaDAO(connection) {
     medidaDAO.prototype.delete = function(medida, callback) {
     
         return new Promise((resolve, reject) => {
-            var sql_query = `update medida set ? where idMedida = ?`;
+            var sql_query = `delete from medida where idMedida = ?`;
             this._connection.query(sql_query, [medida.body, medida.id], function(erro, result) {
                 if (erro) {
                     return reject(erro);

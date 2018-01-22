@@ -11,7 +11,6 @@ module.exports = function(app) {
             loginDAO.autentica(login)
                 .then(result => {
                     if (result.length != 0) {
-                        console.log(result)
                         res.json(result).status(200);
                     } else {
                         res.status(203).send('Email ou senha incorreto.');
@@ -82,10 +81,9 @@ module.exports = function(app) {
         },
         delete: function(req, res) {
             var login = {
-                id: req.params.idUsuario,
+                id: req.params.id,
                 body: req.body
             }
-            console.log()
 
             var connection = app.infra.connectionFactory();
             var loginDAO = new app.infra.cliente.loginDAO(connection);

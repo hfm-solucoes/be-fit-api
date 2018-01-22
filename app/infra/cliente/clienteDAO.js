@@ -62,11 +62,11 @@ clienteDAO.prototype.update = function(objeto, callback) {
     });
 }
 
-clienteDAO.prototype.delete = function(id, callback) {
+clienteDAO.prototype.delete = function(cliente, callback) {
 
     return new Promise((resolve, reject) => {
-        var sql_query = `update cliente set delete = '*' where idUsuario = ?`;
-        this._connection.query(sql_query, [id], function(erro, result) {
+        var sql_query = `delete from cliente where idUsuario = ?`;
+        this._connection.query(sql_query, [cliente.id], function(erro, result) {
             if (erro) {
                 return reject(erro);
             }

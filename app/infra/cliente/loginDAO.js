@@ -12,7 +12,7 @@ loginDAO.prototype.autentica = function(objeto, callback) {
             if (erro) {
                 return reject(erro);
             }
-            return resolve(result[0]);
+            return resolve(result);
         });
     });
 }
@@ -46,7 +46,7 @@ loginDAO.prototype.create = function(objeto, callback) {
 loginDAO.prototype.update = function(objeto, callback) {
     
     return new Promise((resolve, reject) => {
-        var sql_query = `update login set ? where idUsuario = ?`;
+        var sql_query = `update login set ? where idLogin = ?`;
         this._connection.query(sql_query, [objeto.body, objeto.id], function(erro, result) {
             if (erro) {
                 return reject(erro);
@@ -56,11 +56,11 @@ loginDAO.prototype.update = function(objeto, callback) {
     });
 }
 
-loginDAO.prototype.delete = function(id, callback) {
+loginDAO.prototype.delete = function(login, callback) {
 
     return new Promise((resolve, reject) => {
-        var sql_query = `update login set delete = '*' where idUsuario = ?`;
-        this._connection.query(sql_query, [id], function(erro, result) {
+        var sql_query = `delete from login where idLogin = ?`;
+        this._connection.query(sql_query, [login.id], function(erro, result) {
             if (erro) {
                 return reject(erro);
             }
@@ -71,7 +71,7 @@ loginDAO.prototype.delete = function(id, callback) {
 
 loginDAO.prototype.find = function(id, callback){
     return new Promise((resolve, reject) => {
-        var sql_query = `select * from login where idUsuario = ? LIMIT 1`;
+        var sql_query = `select * from login where idLogin = ? LIMIT 1`;
         this._connection.query(sql_query,[id],function(erro, result){
             if(erro){
                 return reject(erro);
